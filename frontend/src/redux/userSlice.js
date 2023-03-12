@@ -11,31 +11,41 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loginStart: (state) => {
-      state.loading = true;
+      if (state !== null && state !== undefined) {
+        state.loading = true;
+      }
     },
     loginSuccess: (state, action) => {
-      state.loading = false;
-      state.currentUser = action.payload;
+      if (state !== null && state !== undefined) {
+        state.loading = false;
+        state.currentUser = action.payload;
+      }
     },
     loginFailure: (state) => {
-      state.loading = false;
-      state.error = true;
+      if (state !== null && state !== undefined) {
+        state.loading = false;
+        state.error = true;
+      }
     },
     logout: (state) => {
-      state.currentUser = null;
-      state.loading = false;
-      state.error = false;
+      if (state !== null && state !== undefined) {
+        state.currentUser = null;
+        state.loading = false;
+        state.error = false;
+      }
     },
     subscription: (state, action) => {
-      if (state.currentUser.subscribedUsers.includes(action.payload)) {
-        state.currentUser.subscribedUsers.splice(
-          state.currentUser.subscribedUsers.findIndex(
-            (channelId) => channelId === action.payload
-          ),
-          1
-        );
-      } else {
-        state.currentUser.subscribedUsers.push(action.payload);
+      if (state !== null && state !== undefined && state.currentUser !== null && state.currentUser !== undefined) {
+        if (state.currentUser.subscribedUsers.includes(action.payload)) {
+          state.currentUser.subscribedUsers.splice(
+            state.currentUser.subscribedUsers.findIndex(
+              (channelId) => channelId === action.payload
+            ),
+            1
+          );
+        } else {
+          state.currentUser.subscribedUsers.push(action.payload);
+        }
       }
     },
   },

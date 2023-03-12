@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -51,7 +49,6 @@ const Avatar = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #999;
 `;
 
 const Input = styled.input`
@@ -64,8 +61,8 @@ const Input = styled.input`
 const Button = styled.button`
   padding: 5px 15px;
   background-color: transparent;
-  border: 1px solid #C9EEFF;
-  color: #C9EEFF;
+  border: 1px solid #c9eeff;
+  color: #c9eeff;
   border-radius: 25px;
   font-weight: 500;
   margin-top: 10px;
@@ -73,27 +70,29 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 5px;
-
 `;
 
 const Navbar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
-  const  {currentUser}  = useSelector((state) => state.user || {});
+  const { currentUser } = useSelector((state) => state.user) || {};
   return (
     <>
       <Container>
         <Wrapper>
           <Search>
-            <Input placeholder="Search" onChange={(e)=>setQ(e.target.value)}/>
-            <SearchOutlinedIcon onClick={()=>navigate(`/search?q=${q}`)}/>
+            <Input
+              placeholder="Search"
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <SearchOutlinedIcon onClick={() => navigate(`/search?q=${q}`)} />
           </Search>
           {currentUser ? (
             <User>
               <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
-              <Avatar />
-              {currentUser.name}
+              <Avatar src={currentUser.photoURL} />
+              {currentUser?.name}
             </User>
           ) : (
             <Link to="signin" style={{ textDecoration: "none" }}>

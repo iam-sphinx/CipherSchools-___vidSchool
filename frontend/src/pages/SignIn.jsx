@@ -1,18 +1,3 @@
-// export const darkTheme = {
-//   bg:"#181818",
-//   bgLighter:"#202021",
-//   text:"white",
-//   textSoft:"#aaaaaa",
-//   soft:"#373737"
-// }
-// export const lightTheme = {
-//   bg:"#f9f9f9",
-//   bgLighter:"#E1EEDD",
-//   text:"black",
-//   textSoft:"#606060",
-//   soft:"#f5f5f5"
-// }
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -38,7 +23,7 @@ const Wrapper = styled.div`
   border: 1px solid #aaa;
   padding: 20px 50px;
   gap: 10px;
-  border-radius:22px;
+  border-radius: 22px;
 `;
 
 const Title = styled.h1`
@@ -57,7 +42,7 @@ const Input = styled.input`
   background-color: transparent;
   width: 100%;
   color: white;
-  border-radius:25px;
+  border-radius: 25px;
 `;
 
 const Button = styled.button`
@@ -68,10 +53,8 @@ const Button = styled.button`
   cursor: pointer;
   background-color: #aaa;
   color: black;
-  border-radius:25px;
+  border-radius: 25px;
 `;
-
-
 
 const SignIn = () => {
   const [name, setName] = useState("");
@@ -91,7 +74,23 @@ const SignIn = () => {
     }
   };
 
-  const sighInWithGoogle = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+
+    try {
+      const response = await axios.post("auth/signup", {
+        name,
+        email,
+        password,
+      });
+      dispatch(loginSuccess(response.data));
+    } catch (err) {
+      dispatch(loginFailure());
+    }
+  };
+
+  const signInWithGoogle = async () => {
     dispatch(loginStart());
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -125,7 +124,7 @@ const SignIn = () => {
         />
         <Button onClick={handleLogin}>Sign in</Button>
         <Title>or</Title>
-        <Button onClick={sighInWithGoogle}>
+        <Button onClick={signInWithGoogle}>
           Sign with your Google account
         </Button>
         <Title>or</Title>
@@ -139,7 +138,7 @@ const SignIn = () => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button>Sign up</Button>
+        <Button onClick={handleSignup}>Sign up</Button>
       </Wrapper>
     </Container>
   );

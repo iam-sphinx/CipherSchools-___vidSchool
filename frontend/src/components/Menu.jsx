@@ -6,7 +6,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import GradeIcon from '@mui/icons-material/Grade';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 const Container = styled.div`
   flex: 1;
   background-color: #181823;
@@ -48,7 +47,6 @@ const Item = styled.div`
 
 
 const Menu = () => {
-  const { currentUser } = useSelector((state) => state.user || {} );
 
   return (
     <Container>

@@ -45,7 +45,7 @@ const Title = styled.h1`
 
 const ChannelName = styled.h2`
   font-size: 14px;
-  color: #606060;
+  color: #191825;
   margin: 9px 0px;
 `;
 

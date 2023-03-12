@@ -1,8 +1,9 @@
 import { createError } from "../error.js";
+import User from "../models/User.js";
 import Video from "../models/Video.js";
 
 export const addVideo = async (req, res, next) => {
-  const newVideo = new Video({ videoId: req.user.id, ...req.body });
+  const newVideo = new Video({ userId: req.user.id, ...req.body });
   try {
     const savedVideo = await newVideo.save();
     res.status(200).json(savedVideo);
@@ -16,7 +17,7 @@ export const updateVideo = async (req, res, next) => {
     const video = await Video.findById(req.params.id);
     if (!video) return next(404, "video not found");
 
-    if (req.user.id === video.videoId) {
+    if (req.user.id === video.userId) {
       const updatedVideo = await Video.findByIdAndUpdate(
         req.params.id,
         {
@@ -38,7 +39,7 @@ export const deleteVideo = async (req, res, next) => {
     const video = await Video.findById(req.params.id);
     if (!video) return next(404, "video not found");
 
-    if (req.user.id === video.videoId) {
+    if (req.user.id === video.userId) {
       await Video.findByIdAndDelete(req.params.id);
       res.status(200).json("Video has been deleted !");
     } else {
@@ -75,6 +76,50 @@ export const search = async (req, res, next) => {
     const videos = await Video.find({
       title: { $regex: query, $options: "i" },
     }).limit(40);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const tagSearch = async (req, res, next) => {
+  const tags = req.query.tags.split(",");
+
+  try {
+    const videos = await Video.find({ tags: { $in: tags } }).limit(15);
+    res.status(200).json(videos);
+  } catch (err) {
+    next(err);
+  }
+};
+export const randomVideo = async (req, res, next) => {
+  try {
+    const videos = await Video.aggregate([{ $sample: { size: 30 } }]);
+    res.status(200).json(videos);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const popularVideo = async (req, res, next) => {
+  try {
+    const videos = await Video.find().sort({ views: -1 });
+    res.status(200).json(videos);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const sub = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const subscribedChannels = user.subscribedUsers;
+
+    const list = await Promise.all(
+      subscribedChannels.map((channelId) => {
+        return Video.find({ userId: channelId });
+      })
+    );
+    res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
   } catch (err) {
     next(err);
   }

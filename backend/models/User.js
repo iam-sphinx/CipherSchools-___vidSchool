@@ -14,10 +14,21 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     img: {
       type: String,
+    },
+    subscribers: {
+      type: Number,
+      default: 0,
+    },
+    subscribedUsers: {
+      type: [String],
+      default: [],
+    },
+    fromGoogle: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

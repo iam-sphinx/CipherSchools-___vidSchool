@@ -70,3 +70,31 @@ export const dislikevideo = async (req, res, next) => {
     next(err);
   }
 };
+
+export const subscribe = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.user.id,{
+      $addToSet:{subscribedUsers:req.params.id}
+    })
+    await User.findByIdAndUpdate(req.params.id,{
+      $inc:{subscribers:1}
+    })
+    res.status(200).json("Subscription added !")
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const unsubscribe = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.user.id,{
+      $pull:{subscribedUsers:req.params.id}
+    })
+    await User.findByIdAndUpdate(req.params.id,{
+      $inc:{subscribers:-1}
+    })
+    res.status(200).json("Subscription added !")
+  } catch (err) {
+    next(err);
+  }
+};

@@ -4,6 +4,8 @@ import {
   dislikevideo,
   getUser,
   likeVideo,
+  subscribe,
+  unsubscribe,
   updateUser,
 } from "../controllers/User.js";
 import { verifyToken } from "../verifyToken.js";
@@ -24,5 +26,11 @@ router.put("/like/:videoId", verifyToken, likeVideo);
 
 //dislike a video
 router.put("/dislike/:videoId", verifyToken, dislikevideo);
+
+//subscribe a user
+router.put('/sub/:id',verifyToken, subscribe)
+
+//unsubscribe a user
+router.put('/unsub/:id',verifyToken, unsubscribe)
 
 export default router;

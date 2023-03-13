@@ -54,7 +54,7 @@ const Comments = ({ videoId }) => {
   const handleClick = async () => {
     try {
       if (!comment) return; 
-      const response = await axios.post("comments/", { comment });
+      const response = await axios.post("/comments/", { comment });
       setComment(""); 
       setComments((prevComments) => [...prevComments, response.data]); // add new comment to the list
     } catch (err) {

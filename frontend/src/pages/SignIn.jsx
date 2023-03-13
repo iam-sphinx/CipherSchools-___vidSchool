@@ -67,7 +67,7 @@ const SignIn = () => {
     dispatch(loginStart());
 
     try {
-      const response = await axios.post("auth/signin", { name, password });
+      const response = await axios.post("/auth/signin", { name, password });
       dispatch(loginSuccess(response.data));
     } catch (err) {
       dispatch(loginFailure());
@@ -79,7 +79,7 @@ const SignIn = () => {
     dispatch(loginStart());
 
     try {
-      const response = await axios.post("auth/signup", {
+      const response = await axios.post("/auth/signup", {
         name,
         email,
         password,

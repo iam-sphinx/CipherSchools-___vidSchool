@@ -14,7 +14,7 @@ const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
     const fetchVideos = async () => {
-      const response = await axios.get(`https://vid-school-clipher-project.onrender.com/api/videos/${type}`);
+      const response = await axios.get(`/videos/${type}`);
       setVideos(response.data);
     };
     fetchVideos();

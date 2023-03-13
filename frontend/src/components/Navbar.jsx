@@ -88,7 +88,7 @@ const Navbar = () => {
               placeholder="Search"
               onChange={(e) => setQ(e.target.value)}
             />
-            <SearchOutlinedIcon onClick={() => navigate(`https://vid-school-clipher-project.onrender.com/api/search?q=${q}`)} />
+            <SearchOutlinedIcon onClick={() => navigate(`/api/search?q=${q}`)} />
           </Search>
           {currentUser ? (
             <User>

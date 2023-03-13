@@ -44,7 +44,7 @@ const Comments = ({ videoId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`https://vid-school-clipher-project.onrender.com/api/comments/${videoId}`);
+        const response = await axios.get(`/api/comments/${videoId}`);
         setComments(response.data);
       } catch (err) {}
     };
@@ -54,7 +54,7 @@ const Comments = ({ videoId }) => {
   const handleClick = async () => {
     try {
       if (!comment) return; 
-      const response = await axios.post("https://vid-school-clipher-project.onrender.com/api/comments/", { comment });
+      const response = await axios.post("/api/comments/", { comment });
       setComment(""); 
       setComments((prevComments) => [...prevComments, response.data]); // add new comment to the list
     } catch (err) {

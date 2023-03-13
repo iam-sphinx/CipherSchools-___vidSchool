@@ -27,13 +27,6 @@ const Name = styled.span`
   font-weight: 500;
 `;
 
-const Date = styled.span`
-  font-size: 12px;
-  font-weight: 400;
-  color: #606060;
-  margin-left: 5px;
-`;
-
 const Text = styled.span`
   font-size: 14px;
 `;
@@ -53,7 +46,7 @@ const Comment = ({ comment }) => {
       <Avatar src={channel.img} />
       <Details>
         <Name>
-          {channel.name} <Date>1 day ago</Date>
+          {channel.name}
         </Name>
         <Text>{comment.desc}</Text>
       </Details>

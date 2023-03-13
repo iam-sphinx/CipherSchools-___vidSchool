@@ -18,7 +18,7 @@ export const userSlice = createSlice({
     loginSuccess: (state, action) => {
       if (state !== null && state !== undefined) {
         state.loading = false;
-        state.currentUser = action.payload;
+        state.currentUser = action.payload._id;
       }
     },
     loginFailure: (state) => {
@@ -35,7 +35,12 @@ export const userSlice = createSlice({
       }
     },
     subscription: (state, action) => {
-      if (state !== null && state !== undefined && state.currentUser !== null && state.currentUser !== undefined) {
+      if (
+        state !== null &&
+        state !== undefined &&
+        state.currentUser !== null &&
+        state.currentUser !== undefined
+      ) {
         if (state.currentUser.subscribedUsers.includes(action.payload)) {
           state.currentUser.subscribedUsers.splice(
             state.currentUser.subscribedUsers.findIndex(

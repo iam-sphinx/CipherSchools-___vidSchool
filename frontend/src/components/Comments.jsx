@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
@@ -22,17 +20,26 @@ const Avatar = styled.img`
 
 const Input = styled.input`
   border: none;
-  border-bottom: 1px solid #606060;
+  border-bottom: 1px solid #aaa;
   color: white;
   background-color: transparent;
   outline: none;
   padding: 5px;
   width: 100%;
+  color: white;
+`;
+
+const Button = styled.button`
+  padding: 5px 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
 `;
 
 const Comments = ({ videoId }) => {
   const { currentUser } = useSelector((state) => state.user) || {};
 
+  const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   useEffect(() => {
     const fetchComments = async () => {
@@ -44,11 +51,26 @@ const Comments = ({ videoId }) => {
     fetchComments();
   });
 
+  const handleClick = async () => {
+    try {
+      if (!comment) return; 
+      const response = await axios.post("comments/", { comment });
+      setComment(""); 
+      setComments((prevComments) => [...prevComments, response.data]); // add new comment to the list
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <NewComment>
         <Avatar src={currentUser?.img} />
-        <Input placeholder="Add a comment..." />
+        <Input
+          placeholder="Add a comment..."
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <Button onClick={handleClick}>submit</Button>
       </NewComment>
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment} />

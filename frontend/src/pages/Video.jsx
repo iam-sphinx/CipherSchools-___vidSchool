@@ -4,9 +4,6 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../components/Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";

@@ -6,6 +6,7 @@ import commentRoutes from "./routes/comment.js";
 import videoRoutes from "./routes/videos.js";
 import authRoutes from "./routes/auth.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 //dotenv config
 dotenv.config();
@@ -14,6 +15,7 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

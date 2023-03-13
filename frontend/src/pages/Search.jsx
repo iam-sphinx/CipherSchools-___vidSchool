@@ -16,7 +16,7 @@ const Search = () => {
 
   useEffect(()=>{
     const fetchVideos = async()=>{
-        const response = await axios.get( `/api/videos/search${query}`)
+        const response = await axios.get( `https://vid-school-clipher-project.onrender.com/api/videos/search${query}`)
         setVideos(response.data)
     }
     fetchVideos()

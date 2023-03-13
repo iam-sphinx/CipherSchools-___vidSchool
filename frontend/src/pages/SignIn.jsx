@@ -67,7 +67,7 @@ const SignIn = () => {
     dispatch(loginStart());
 
     try {
-      const response = await axios.post("/api/auth/signin", { name, password });
+      const response = await axios.post("https://vid-school-clipher-project.onrender.com/api/auth/signin", { name, password });
       dispatch(loginSuccess(response.data));
     } catch (err) {
       dispatch(loginFailure());
@@ -79,7 +79,7 @@ const SignIn = () => {
     dispatch(loginStart());
 
     try {
-      const response = await axios.post("/api/auth/signup", {
+      const response = await axios.post("https://vid-school-clipher-project.onrender.com/api/auth/signup", {
         name,
         email,
         password,
@@ -95,7 +95,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post("/api/auth/google", {
+          .post("https://vid-school-clipher-project.onrender.com/api/auth/google", {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,

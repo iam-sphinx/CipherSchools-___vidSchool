@@ -59,7 +59,7 @@ const Card = ({ type, video }) => {
 
   useEffect(() => {
     const fetchChannel = async () => {
-      const response = await axios.get(`/users/find/${video.userId}`);
+      const response = await axios.get(`https://vid-school-clipher-project.onrender.com/api/users/find/${video.userId}`);
       setChannel(response.data);
     };
     fetchChannel();

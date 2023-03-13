@@ -12,7 +12,7 @@ const Recommendation = ({tags}) => {
 
   useEffect(()=>{
     const fetchVideos = async () =>{
-      const response = await axios.get(`/videos/tags?tags=${tags}`);
+      const response = await axios.get(`https://vid-school-clipher-project.onrender.com/api/videos/tags?tags=${tags}`);
       setVideos(response.data);
     };
     fetchVideos();
